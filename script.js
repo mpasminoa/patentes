@@ -118,7 +118,7 @@ function dibujar() {
 
 
 // --- CÁLCULO DE MEDIDA PARA EL LÁSER (REGLA FIJA FIEL AL DIBUJO) ---
-let medidaFinalMM;
+/*let medidaFinalMM;
 
 if (logoFile) {
     // Definimos qué altura estamos usando realmente para dibujar
@@ -142,7 +142,36 @@ const displayMedida = document.getElementById('medidaLaser');
 if (displayMedida) {
     displayMedida.innerText = medidaFinalMM.toFixed(2);
 }
+*/
 
+
+// --- CÁLCULO DE PRECISIÓN PARA LASERPECKER (CALIBRADO A 22.69) ---
+let medidaFinalMM;
+
+// Definimos la altura real que se está dibujando en el canvas
+let alturaDibujoPx;
+if (posicionActual === 'izquierda') {
+    alturaDibujoPx = altoDinamico; 
+} else {
+    // Logo(altoDinamico) + Margen(60) + Separacion(60) + Letras(180)
+    // Para que en el default (170) de 22.69, calculamos el área de "tinta" real:
+    alturaDibujoPx = altoDinamico + 50; 
+}
+
+if (logoFile) {
+    // FACTOR DE CALIBRACIÓN: 22.69mm / 220px = 0.103136
+    const factorCalibracion = 22.69 / 220;
+    medidaFinalMM = alturaDibujoPx * factorCalibracion;
+} else {
+    // Tu medida estándar sin logo (Letras 8mm + márgenes = 11.82mm)
+    medidaFinalMM = 11.82;
+}
+
+// Actualizamos el número en el HTML
+const displayMedida = document.getElementById('medidaLaser');
+if (displayMedida) {
+    displayMedida.innerText = medidaFinalMM.toFixed(2);
+}
 
 
         };

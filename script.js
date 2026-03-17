@@ -144,28 +144,33 @@ function dibujar() {
             }
             */
             // --- CÁLCULO DE PRECISIÓN ABSOLUTA (161px = 8mm) ---
-   // --- CÁLCULO DE MEDIDA (MODO ARRIBA) ---
-// 1. Datos base en píxeles (Tinta real)
-const PIXELES_LETRA_TINTA = 161; 
-const SEPARACION_PX = 60;
-const MM_LETRA_OBJETIVO = 8;
+            // --- CÁLCULO DE MEDIDA (MODO ARRIBA) ---
+            // 1. Datos base en píxeles (Tinta real)
+            const PIXELES_LETRA_TINTA = 161;
+            const SEPARACION_PX = 60;
+            const MM_LETRA_OBJETIVO_VIDRIOS = 8;
+            const MM_LETRA_OBJETIVO_ESPEJOS = 6;
 
-// 2. Altura del logo con tu ajuste de +50
-const altoLogoRealPx = altoDinamico + 50;
+            // 2. Altura del logo con tu ajuste de +50
+            const altoLogoRealPx = altoDinamico + 50;
 
-// 3. Altura Total de Tinta (Lo que el láser detecta)
-// Logo + Espacio + Letras
-const alturaTotalTintaPx = altoLogoRealPx + SEPARACION_PX + PIXELES_LETRA_TINTA;
+            // 3. Altura Total de Tinta (Lo que el láser detecta)
+            // Logo + Espacio + Letras
+            const alturaTotalTintaPx = altoLogoRealPx + SEPARACION_PX + PIXELES_LETRA_TINTA;
 
-// 4. Cálculo final: (Altura Total / 161) * 8
-const medidaFinalMM = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO;
+            // 4. Cálculo final: (Altura Total / 161) * 8
+            const medidaFinalMMVidrios = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_VIDRIOS;
+            const medidaFinalMMEspejos = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_ESPEJOS;
 
-// 5. Actualizar solo el elemento de texto en el HTML
-const displayMedida = document.getElementById('medidaLaser');
-if (displayMedida) {
-    displayMedida.innerText = medidaFinalMM.toFixed(2);
-}
-
+            // 5. Actualizar solo el elemento de texto en el HTML
+            const displayMedidaVidrios = document.getElementById('medidaLaservidrios');
+            const displayMedidaEspejos = document.getElementById('medidaLaserespejos');
+            if (displayMedidaVidrios) {
+                displayMedidaVidrios.innerText = medidaFinalMMVidrios.toFixed(2);
+            }
+            if (displayMedidaEspejos) {
+                displayMedidaEspejos.innerText = medidaFinalMMEspejos.toFixed(2);
+            }
         };
 
     } else {

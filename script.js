@@ -46,7 +46,7 @@ function dibujar() {
     };
     if (logoFile) {
         const img = new Image();
-         img.crossOrigin = "anonymous";
+      //   img.crossOrigin = "anonymous";
         img.src = `assets/logos/${logoFile}`;
 
 

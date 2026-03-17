@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Patentes para Láser</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Definimos la fuente aquí también para asegurar la carga */
+        @font-face {
+            font-family: 'MiFuentePatente';
+            src: url('assets/fonts/FE-Font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <h3>Grabado de Patentes</h3>
+        
+        <label>Número de Patente:</label>
+        <input type="text" id="textoPatente" placeholder="ABCD 12" oninput="dibujar()">
+
+        <label>Marca del Vehículo:</label>
+        <select id="selectorLogo" onchange="dibujar()">
+            <option value="">Sin Logo</option>
+            <option value="toyota.png">Toyota</option>
+            <option value="hyundai.png">Hyundai</option>
+            <option value="suzuki.png">Suzuki</option>
+            <option value="chevrolet.png">Chevrolet</option>
+            <option value="kia.png">Kia</option>
+        </select>
+
+        <label>Ubicación del Logo:</label>
+        <div class="pos-buttons">
+            <button type="button" onclick="cambiarPosicion('arriba')">Arriba</button>
+            <button type="button" onclick="cambiarPosicion('izquierda')">Izquierda</button>
+        </div>
+
+        <button class="download" onclick="descargarImagen()">Descargar JPG</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="canvasPatente" width="1200" height="600"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>

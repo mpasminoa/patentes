@@ -1,0 +1,79 @@
+ @font-face {
+            font-family: 'MiFuentePatente';
+            src: url('assets/fonts/FE-Font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1a1a1a; /* Oscuro, más cómodo para trabajar */
+    color: white;
+    padding: 15px;
+    margin: 0;
+}
+
+.controls {
+    background: #2d2d2d;
+    padding: 20px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label {
+    font-size: 14px;
+    color: #bbb;
+}
+
+input, select, button {
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+input {
+    background: #404040;
+    color: white;
+    text-transform: uppercase;
+}
+
+.pos-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.pos-buttons button {
+    flex: 1;
+    background: #444;
+    color: white;
+}
+
+button.download {
+    background: #e67e22; /* Color llamativo para descargar */
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.canvas-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    background-color: white; /* El fondo siempre blanco para el láser */
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    max-width: 100%;
+}

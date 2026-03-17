@@ -117,62 +117,54 @@ function dibujar() {
             }
 
 
-// --- CÁLCULO DE MEDIDA PARA EL LÁSER (REGLA FIJA FIEL AL DIBUJO) ---
-/*let medidaFinalMM;
+            // --- CÁLCULO DE MEDIDA PARA EL LÁSER (REGLA FIJA FIEL AL DIBUJO) ---
+            /*let medidaFinalMM;
+            
+            if (logoFile) {
+                // Definimos qué altura estamos usando realmente para dibujar
+                let alturaRealUtilizada;
+                
+                if (posicionActual === 'izquierda') {
+                    alturaRealUtilizada = altoDinamico; // Aquí usas el valor del slider tal cual
+                } else {
+                    alturaRealUtilizada = altoDinamico + 50; // Aquí es donde le sumas los 50 por defecto
+                }
+            
+                // REGLA DE TRES: Si 220px (170+50) son 24mm, la relación es 24/220
+                medidaFinalMM = (alturaRealUtilizada * 24) / 220;
+            } else {
+                // Sin logo, tu medida estándar
+                medidaFinalMM = 11.82;
+            }
+            
+            // Actualizamos el número en el HTML
+            const displayMedida = document.getElementById('medidaLaser');
+            if (displayMedida) {
+                displayMedida.innerText = medidaFinalMM.toFixed(2);
+            }
+            */
+            // --- CÁLCULO DE PRECISIÓN ABSOLUTA (161px = 8mm) ---
+   // --- CÁLCULO DE MEDIDA (MODO ARRIBA) ---
+// 1. Datos base en píxeles (Tinta real)
+const PIXELES_LETRA_TINTA = 161; 
+const SEPARACION_PX = 60;
+const MM_LETRA_OBJETIVO = 8;
 
-if (logoFile) {
-    // Definimos qué altura estamos usando realmente para dibujar
-    let alturaRealUtilizada;
-    
-    if (posicionActual === 'izquierda') {
-        alturaRealUtilizada = altoDinamico; // Aquí usas el valor del slider tal cual
-    } else {
-        alturaRealUtilizada = altoDinamico + 50; // Aquí es donde le sumas los 50 por defecto
-    }
+// 2. Altura del logo con tu ajuste de +50
+const altoLogoRealPx = altoDinamico + 50;
 
-    // REGLA DE TRES: Si 220px (170+50) son 24mm, la relación es 24/220
-    medidaFinalMM = (alturaRealUtilizada * 24) / 220;
-} else {
-    // Sin logo, tu medida estándar
-    medidaFinalMM = 11.82;
-}
+// 3. Altura Total de Tinta (Lo que el láser detecta)
+// Logo + Espacio + Letras
+const alturaTotalTintaPx = altoLogoRealPx + SEPARACION_PX + PIXELES_LETRA_TINTA;
 
-// Actualizamos el número en el HTML
+// 4. Cálculo final: (Altura Total / 161) * 8
+const medidaFinalMM = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO;
+
+// 5. Actualizar solo el elemento de texto en el HTML
 const displayMedida = document.getElementById('medidaLaser');
 if (displayMedida) {
     displayMedida.innerText = medidaFinalMM.toFixed(2);
 }
-*/
-
-
-// --- CÁLCULO DE PRECISIÓN PARA LASERPECKER (CALIBRADO A 22.69) ---
-let medidaFinalMM;
-
-// Definimos la altura real que se está dibujando en el canvas
-let alturaDibujoPx;
-if (posicionActual === 'izquierda') {
-    alturaDibujoPx = altoDinamico; 
-} else {
-    // Logo(altoDinamico) + Margen(60) + Separacion(60) + Letras(180)
-    // Para que en el default (170) de 22.69, calculamos el área de "tinta" real:
-    alturaDibujoPx = altoDinamico + 50; 
-}
-
-if (logoFile) {
-    // FACTOR DE CALIBRACIÓN: 22.69mm / 220px = 0.103136
-    const factorCalibracion = 22.86 / 220;
-    medidaFinalMM = alturaDibujoPx * factorCalibracion;
-} else {
-    // Tu medida estándar sin logo (Letras 8mm + márgenes = 11.82mm)
-    medidaFinalMM = 11.82;
-}
-
-// Actualizamos el número en el HTML
-const displayMedida = document.getElementById('medidaLaser');
-if (displayMedida) {
-    displayMedida.innerText = medidaFinalMM.toFixed(2);
-}
-
 
         };
 

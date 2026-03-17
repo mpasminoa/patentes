@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Patentes para Láser</title>
-    
+
     <link rel="stylesheet" href="style.css">
-    
+
     <style>
         /* Definimos la fuente aquí también para asegurar la carga */
         @font-face {
@@ -15,13 +16,64 @@
             font-weight: normal;
             font-style: normal;
         }
+
+
+
+
+        .info-medidas {
+            background: #f8f9fa;
+            border-left: 5px solid #212529;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .info-medidas h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .material-section {
+            margin-bottom: 12px;
+        }
+
+        .material-name {
+            font-weight: bold;
+            color: #e63946;
+            /* Un rojo sutil para destacar el material */
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .medida-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+            font-size: 0.95rem;
+        }
+
+        .label {
+            color: #555;
+        }
+
+        .value {
+            font-weight: bold;
+            color: #000;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="controls">
         <h3>Grabado de Patentes</h3>
-        
+
         <label>Número de Patente:</label>
         <input type="text" id="textoPatente" placeholder="ABCD 12" oninput="dibujar()">
 
@@ -47,8 +99,35 @@
     <div class="canvas-container">
         <canvas id="canvasPatente" width="1600" height="600"></canvas>
     </div>
+    <div class="info-medidas">
+        <h3>📏 Medidas de Grabado (mm)</h3>
 
+        <div class="material-section">
+            <span class="material-name">Vidrios</span>
+            <div class="medida-item">
+                <span class="label">Con logo:</span>
+                <span class="value">24.00</span>
+            </div>
+            <div class="medida-item">
+                <span class="label">Sin logo:</span>
+                <span class="value">11.82</span>
+            </div>
+        </div>
+
+        <div class="material-section">
+            <span class="material-name">Espejos</span>
+            <div class="medida-item">
+                <span class="label">Con logo:</span>
+                <span class="value">18.00</span>
+            </div>
+            <div class="medida-item">
+                <span class="label">Sin logo:</span>
+                <span class="value">8.86</span>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
-    
+
 </body>
+
 </html>

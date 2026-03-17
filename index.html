@@ -106,7 +106,11 @@
             <option value="volkswagen.png">Volkswagen</option>
 
         </select>
-
+<div class="control-group">
+    <label for="altoLogoRange">Tamaño del Logo: </label>
+    <input type="range" id="altoLogoRange" min="50" max="400" value="170" oninput="actualizarValorAlto(this.value); dibujar()">
+    <span id="valorAlto">170</span>px
+</div>
         <label>Ubicación del Logo:</label>
         <div class="pos-buttons">
             <button type="button" onclick="cambiarPosicion('arriba')">Arriba</button>
@@ -146,6 +150,11 @@
             </div>
         </div>
     </div>
+    <div class="medida-dinamica">
+    <span class="label">Altura recomendada para Láser:</span>
+    <span id="medidaLaser" style="font-weight:bold; color:#e63946; font-size:1.2rem;">24.00</span> mm
+</div>
+
     <script src="script.js"></script>
 
 </body>

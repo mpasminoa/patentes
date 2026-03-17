@@ -2,7 +2,15 @@ const canvas = document.getElementById('canvasPatente');
 const ctx = canvas.getContext('2d');
 let posicionActual = 'arriba';
 
+function actualizarValorAlto(val) {
+    document.getElementById('valorAlto').innerText = val;
+}
+
 function dibujar() {
+
+    const slider = document.getElementById('altoLogoRange');
+    const altoDinamico = parseInt(slider.value);
+
     let rawTexto = document.getElementById('textoPatente').value.toUpperCase();
     let textoFormateado = rawTexto;
 
@@ -46,13 +54,14 @@ function dibujar() {
     };
     if (logoFile) {
         const img = new Image();
-      //   img.crossOrigin = "anonymous";
+        //   img.crossOrigin = "anonymous";
         img.src = `assets/logos/${logoFile}`;
 
 
         img.onload = function () {
-            const alturaFijaArriba = 220;
-            const alturaFijaIzquierda = 170;
+
+            const alturaFijaArriba = altoDinamico + 50;
+            const alturaFijaIzquierda = altoDinamico;
             const proporcion = img.width / img.height;
 
             // Cálculo para centrar verticalmente: (Alto Canvas / 2) - (Alto Logo / 2)
@@ -87,19 +96,55 @@ function dibujar() {
                 ctx.textAlign = "center";
 
             } else {
-                // 1. ACHICAMOS LA DISTANCIA
-                const anchoAutomatico = alturaFijaArriba * proporcion;
+                // 1. CALCULAMOS EL ANCHO Y ALTO DINÁMICO
+                const anchoAutomatico = altoDinamico * proporcion;
                 const xCentradoLogo = (canvas.width / 2) - (anchoAutomatico / 2);
 
-                // Bajamos el logo un poco (de 40 a 80 para que no esté pegado al borde superior)
-                const yLogoArriba = 50;
-                ctx.drawImage(img, xCentradoLogo, yLogoArriba, anchoAutomatico, alturaFijaArriba);
+                // Posición inicial del logo (un poco de margen desde el borde superior)
+                const yLogoArriba = 60;
+                ctx.drawImage(img, xCentradoLogo, yLogoArriba, anchoAutomatico, altoDinamico);
 
-                // 2. ACERCAMOS EL TEXTO AL LOGO
-                // Subimos la patente de 480 a 420 para cerrar el espacio
+                // 2. LA MAGIA: POSICIÓN DINÁMICA DEL TEXTO
+                // Definimos una separación fija (ej: 60px) entre el fin del logo y el inicio de las letras
+                const separacionFija = 60;
+
+                // El texto se dibujará en: (Inicio Logo + Su Altura + Separación + Ajuste de Fuente)
+                // El ajuste de +120 es para que la "línea base" del texto considere el alto de la letra
+                const yTextoDinamico = yLogoArriba + altoDinamico + separacionFija + 120;
+
                 ctx.textAlign = "center";
-                dibujarTextos(canvas.width / 2, 420, 180);
+                dibujarTextos(canvas.width / 2, yTextoDinamico, 180);
             }
+
+
+// --- CÁLCULO DE MEDIDA PARA EL LÁSER (REGLA FIJA FIEL AL DIBUJO) ---
+let medidaFinalMM;
+
+if (logoFile) {
+    // Definimos qué altura estamos usando realmente para dibujar
+    let alturaRealUtilizada;
+    
+    if (posicionActual === 'izquierda') {
+        alturaRealUtilizada = altoDinamico; // Aquí usas el valor del slider tal cual
+    } else {
+        alturaRealUtilizada = altoDinamico + 50; // Aquí es donde le sumas los 50 por defecto
+    }
+
+    // REGLA DE TRES: Si 220px (170+50) son 24mm, la relación es 24/220
+    medidaFinalMM = (alturaRealUtilizada * 24) / 220;
+} else {
+    // Sin logo, tu medida estándar
+    medidaFinalMM = 11.82;
+}
+
+// Actualizamos el número en el HTML
+const displayMedida = document.getElementById('medidaLaser');
+if (displayMedida) {
+    displayMedida.innerText = medidaFinalMM.toFixed(2);
+}
+
+
+
         };
 
     } else {

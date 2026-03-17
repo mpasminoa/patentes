@@ -160,7 +160,7 @@ if (posicionActual === 'izquierda') {
 
 if (logoFile) {
     // FACTOR DE CALIBRACIÓN: 22.69mm / 220px = 0.103136
-    const factorCalibracion = 22.69 / 220;
+    const factorCalibracion = 22.86 / 220;
     medidaFinalMM = alturaDibujoPx * factorCalibracion;
 } else {
     // Tu medida estándar sin logo (Letras 8mm + márgenes = 11.82mm)

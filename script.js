@@ -117,34 +117,9 @@ function dibujar() {
             }
 
 
-            // --- CÁLCULO DE MEDIDA PARA EL LÁSER (REGLA FIJA FIEL AL DIBUJO) ---
-            /*let medidaFinalMM;
-            
-            if (logoFile) {
-                // Definimos qué altura estamos usando realmente para dibujar
-                let alturaRealUtilizada;
-                
-                if (posicionActual === 'izquierda') {
-                    alturaRealUtilizada = altoDinamico; // Aquí usas el valor del slider tal cual
-                } else {
-                    alturaRealUtilizada = altoDinamico + 50; // Aquí es donde le sumas los 50 por defecto
-                }
-            
-                // REGLA DE TRES: Si 220px (170+50) son 24mm, la relación es 24/220
-                medidaFinalMM = (alturaRealUtilizada * 24) / 220;
-            } else {
-                // Sin logo, tu medida estándar
-                medidaFinalMM = 11.82;
-            }
-            
-            // Actualizamos el número en el HTML
-            const displayMedida = document.getElementById('medidaLaser');
-            if (displayMedida) {
-                displayMedida.innerText = medidaFinalMM.toFixed(2);
-            }
-            */
-            // --- CÁLCULO DE PRECISIÓN ABSOLUTA (161px = 8mm) ---
-            // --- CÁLCULO DE MEDIDA (MODO ARRIBA) ---
+            // CALCULO MEDIDA CON LOGO
+
+            /*
             // 1. Datos base en píxeles (Tinta real)
             const PIXELES_LETRA_TINTA = 161;
             const SEPARACION_PX = 60;
@@ -171,6 +146,51 @@ function dibujar() {
             if (displayMedidaEspejos) {
                 displayMedidaEspejos.innerText = medidaFinalMMEspejos.toFixed(2);
             }
+*/
+
+
+// --- CONFIGURACIÓN TÉCNICA (Letras 161px = 8mm/6mm) ---
+const PIXELES_LETRA_TINTA = 161; 
+const SEPARACION_PX = 60;
+
+// NUEVOS DATOS DEL "#"
+const PIXELES_NUMERAL_TINTA = 33; // Lo que mide el # solo
+const DESPLAZAMIENTO_NUMERAL = 33; // El espacio entre la letra y el #
+
+const MM_LETRA_OBJETIVO_VIDRIOS = 8;
+const MM_LETRA_OBJETIVO_ESPEJOS = 6;
+
+// 2. Altura del logo con tu ajuste de +50
+const altoLogoRealPx = altoDinamico + 50;
+
+// 3. Altura Total de Tinta (Lo que el láser detecta de punta a punta)
+// Logo + Espacio + Letras + Espacio al # + El propio #
+const alturaTotalTintaPx = altoLogoRealPx + 
+                           SEPARACION_PX + 
+                           PIXELES_LETRA_TINTA + 
+                           DESPLAZAMIENTO_NUMERAL + 
+                           PIXELES_NUMERAL_TINTA;
+
+// 4. Cálculo final: (Altura Total / 161) * Objetivo
+// Usamos siempre 161 como base porque es tu referencia de escala real
+const medidaFinalMMVidrios = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_VIDRIOS;
+const medidaFinalMMEspejos = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_ESPEJOS;
+
+// 5. Actualizar los elementos en el HTML
+const displayMedidaVidrios = document.getElementById('medidaLaservidrios');
+const displayMedidaEspejos = document.getElementById('medidaLaserespejos');
+
+if (displayMedidaVidrios) {
+    displayMedidaVidrios.innerText = medidaFinalMMVidrios.toFixed(2);
+}
+if (displayMedidaEspejos) {
+    displayMedidaEspejos.innerText = medidaFinalMMEspejos.toFixed(2);
+}
+
+
+
+
+
         };
 
     } else {

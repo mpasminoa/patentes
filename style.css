@@ -138,6 +138,15 @@
      display: block;
      margin-bottom: 5px;
  }
+.ancho-alto {
+     color: #e63946;
+    display: block;       /* Hace que ocupe todo el ancho */
+    text-align: center;   /* Centra el texto */
+    font-weight: bold;    /* Opcional: para que resalte como título */
+    margin-bottom: 10px;  /* Opcional: espacio con lo de abajo */
+    width: 100%;          /* Asegura que tome el ancho del div padre */
+}
+ 
 
  .medida-item {
      display: flex;
@@ -154,3 +163,36 @@
      font-weight: bold;
      color: #000;
  }
+ .software-credits {
+    margin-top: 50px;
+    padding: 30px 15px;
+    background-color: #f8f9fa; /* Gris muy suave */
+    border-top: 2px solid #e9ecef;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.credits-content p {
+    margin: 5px 0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.legal-text {
+    font-size: 0.75rem !important;
+    color: #adb5bd !important;
+    max-width: 500px;
+    margin: 10px auto !important;
+    font-style: italic;
+}
+
+.brand-footer {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #212529;
+}
+
+.brand-footer span {
+    font-weight: bold;
+    color: #007bff; /* Color de tu marca */
+}

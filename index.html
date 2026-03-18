@@ -22,10 +22,10 @@
 <body>
 
     <div class="controls">
-        <h3>Grabado de Patentes V5</h3>
+        <h3>Grabado de Patentes</h3>
 
         <label>Número de Patente:</label>
-        <input type="text" id="textoPatente" placeholder="ABCD 12" oninput="dibujar()">
+        <input type="text" id="textoPatente" maxlength="6" placeholder="AA1122" oninput="dibujar()">
 
         <label>Marca del Vehículo:</label>
         <select id="selectorLogo" onchange="dibujar()">
@@ -75,51 +75,59 @@
         <canvas id="canvasPatente" width="1600" height="1000"></canvas>
     </div>
     <div class="info-medidas" id="info-logo-arriba">
-        <h3>📏 Medidas de Grabado ANCHO(mm)</h3>
+        <h3>📏 Medidas de Grabado</h3>
         <h4>Logo arriba</h4>
-
-       
-
+        <div style="text-align: center;">
+            <span class="ancho-alto">ANCHO</span>
+        </div>
         <div class="material-section">
             <div class="medida-item">
-                <span class="material-name">Vidrios: </span>
-                <span id="medidaLaservidrios" class="value">-</span>
+                <span class="material-name">Vidrios:&nbsp;</span>
+                <span id="medidaLaservidrios" class="value">-</span><span class="value">mm</span>
             </div>
         </div>
 
         <div class="material-section">
             <div class="medida-item">
-                <span class="material-name">Espejos: </span>
-                <span id="medidaLaserespejos" class="value">-</span>
+                <span class="material-name">Espejos:&nbsp;</span>
+                <span id="medidaLaserespejos" class="value">-</span><span class="value">mm</span>
             </div>
         </div>
-         <p class="nota-tecnica">⚠️ <strong>Importante:</strong> El logo no debe superar el ancho de las letras.</p>
     </div>
 
     <div class="info-medidas hidden" id="info-logo-izquierda">
-        <h3>📏 Medidas de Grabado LARGO(mm)</h3>
+        <h3>📏 Medidas de Grabado)</h3>
         <h4>Logo izquierda / Sin Logo </h4>
 
-   
 
+        <div style="text-align: center;">
+            <span class="ancho-alto">ALTO</span>
+        </div>
         <div class="material-section">
             <div class="medida-item">
-                <span class="material-name">Vidrios: </span>
-                <span class="value">11.82</span>
+                <span class="material-name">Vidrios:&nbsp; </span>
+                <span class="value">11.82 mm</span>
             </div>
         </div>
 
         <div class="material-section">
             <div class="medida-item">
-                <span class="material-name">Espejos: </span>
-                <span class="value">8.86</span>
+                <span class="material-name">Espejos:&nbsp; </span>
+                <span class="value">8.86mm</span>
             </div>
         </div>
-             <p class="nota-tecnica">⚠️ <strong>Importante:</strong> El logo no debe superar el alto de las letras.</p>
     </div>
 
     <script src="script.js"></script>
 
 </body>
+<footer class="software-credits">
+    <div class="credits-content">
+        <p><strong>Generador de Imagen para grabado de patente</strong></p>
+        <p>© 2026 Matías Pasmiño. Todos los derechos reservados.</p>
+        <p class="legal-text">Queda prohibida la reproducción total o parcial de este software y su lógica de cálculo
+            sin autorización expresa del autor.</p>
+    </div>
+</footer>
 
 </html>

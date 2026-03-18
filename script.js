@@ -150,42 +150,38 @@ function dibujar() {
 
 
 // --- CONFIGURACIÓN TÉCNICA (Letras 161px = 8mm/6mm) ---
+// 1. MEDIR EL "#" REAL (Tinta)
+ctx.font = "180px 'MiFuentePatente'";
+const metricaNumeral = ctx.measureText("#");
+// Esto mide la mancha negra real del símbolo #
+const PIXELES_NUMERAL_TINTA = metricaNumeral.actualBoundingBoxAscent + metricaNumeral.actualBoundingBoxDescent;
+
+// 2. CONFIGURACIÓN TÉCNICA
 const PIXELES_LETRA_TINTA = 161; 
 const SEPARACION_PX = 60;
-
-// NUEVOS DATOS DEL "#"
-const PIXELES_NUMERAL_TINTA = 33; // Lo que mide el # solo
-const DESPLAZAMIENTO_NUMERAL = 33; // El espacio entre la letra y el #
+// El desplazamiento según tu dibujo original era fontSize * 0.185 (180 * 0.185 = 33.3)
+const DESPLAZAMIENTO_NUMERAL = 33.3; 
 
 const MM_LETRA_OBJETIVO_VIDRIOS = 8;
 const MM_LETRA_OBJETIVO_ESPEJOS = 6;
 
-// 2. Altura del logo con tu ajuste de +50
+// 3. Altura del logo (Slider + 50)
 const altoLogoRealPx = altoDinamico + 50;
 
-// 3. Altura Total de Tinta (Lo que el láser detecta de punta a punta)
-// Logo + Espacio + Letras + Espacio al # + El propio #
+// 4. Altura Total de Tinta (Desde el tope del logo hasta la base del #)
 const alturaTotalTintaPx = altoLogoRealPx + 
                            SEPARACION_PX + 
                            PIXELES_LETRA_TINTA + 
                            DESPLAZAMIENTO_NUMERAL + 
                            PIXELES_NUMERAL_TINTA;
 
-// 4. Cálculo final: (Altura Total / 161) * Objetivo
-// Usamos siempre 161 como base porque es tu referencia de escala real
+// 5. CÁLCULO FINAL BASADO EN TUS 161 PX
 const medidaFinalMMVidrios = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_VIDRIOS;
 const medidaFinalMMEspejos = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_ESPEJOS;
 
-// 5. Actualizar los elementos en el HTML
-const displayMedidaVidrios = document.getElementById('medidaLaservidrios');
-const displayMedidaEspejos = document.getElementById('medidaLaserespejos');
-
-if (displayMedidaVidrios) {
-    displayMedidaVidrios.innerText = medidaFinalMMVidrios.toFixed(2);
-}
-if (displayMedidaEspejos) {
-    displayMedidaEspejos.innerText = medidaFinalMMEspejos.toFixed(2);
-}
+// 6. ACTUALIZAR HTML
+document.getElementById('medidaLaservidrios').innerText = medidaFinalMMVidrios.toFixed(2);
+document.getElementById('medidaLaserespejos').innerText = medidaFinalMMEspejos.toFixed(2);
 
 
 

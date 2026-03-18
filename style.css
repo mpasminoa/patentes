@@ -1,79 +1,156 @@
  @font-face {
-            font-family: 'MiFuentePatente';
-            src: url('assets/fonts/FE-Font.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #1a1a1a; /* Oscuro, más cómodo para trabajar */
-    color: white;
-    padding: 15px;
-    margin: 0;
-}
+     font-family: 'MiFuentePatente';
+     src: url('assets/fonts/FE-Font.ttf') format('truetype');
+     font-weight: normal;
+     font-style: normal;
+ }
 
-.controls {
-    background: #2d2d2d;
-    padding: 20px;
-    border-radius: 15px;
-    width: 100%;
-    max-width: 450px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+ body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     background-color: #1a1a1a;
+     /* Oscuro, más cómodo para trabajar */
+     color: white;
+     padding: 15px;
+     margin: 0;
+ }
 
-label {
-    font-size: 14px;
-    color: #bbb;
-}
+ .controls {
+     background: #2d2d2d;
+     padding: 20px;
+     border-radius: 15px;
+     width: 100%;
+     max-width: 450px;
+     box-sizing: border-box;
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+ }
 
-input, select, button {
-    padding: 15px;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    outline: none;
-}
+ label {
+     font-size: 14px;
+     color: #bbb;
+ }
 
-input {
-    background: #404040;
-    color: white;
-    text-transform: uppercase;
-}
+ input,
+ select,
+ button {
+     padding: 15px;
+     border-radius: 8px;
+     border: none;
+     font-size: 16px;
+     outline: none;
+ }
 
-.pos-buttons {
-    display: flex;
-    gap: 10px;
-}
+ input {
+     background: #404040;
+     color: white;
+     text-transform: uppercase;
+ }
 
-.pos-buttons button {
-    flex: 1;
-    background: #444;
-    color: white;
-}
+ .pos-buttons {
+     display: flex;
+     gap: 10px;
+ }
 
-button.download {
-    background: #e67e22; /* Color llamativo para descargar */
-    color: white;
-    font-weight: bold;
-    margin-top: 10px;
-}
+ .pos-buttons button {
+     flex: 1;
+     background: #444;
+     color: white;
+ }
 
-.canvas-container {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
+ button.download {
+     background: #e67e22;
+     /* Color llamativo para descargar */
+     color: white;
+     font-weight: bold;
+     margin-top: 10px;
+ }
 
-canvas {
-    background-color: white; /* El fondo siempre blanco para el láser */
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    max-width: 100%;
-}
+ .canvas-container {
+     margin-top: 20px;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+ }
+
+ canvas {
+     background-color: white;
+     /* El fondo siempre blanco para el láser */
+     border-radius: 5px;
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+     max-width: 100%;
+ }
+
+ .hidden {
+     display: none !important;
+ }
+
+
+ .nota-tecnica {
+     background-color: #fff3cd;
+     /* Amarillo clarito */
+     color: #856404;
+     /* Café oscuro para contraste */
+     padding: 8px 12px;
+     border-left: 4px solid #ffeeba;
+     font-size: 0.85rem;
+     margin: 10px 0;
+     border-radius: 4px;
+     line-height: 1.4;
+ }
+
+
+ .info-medidas {
+     background: #f8f9fa;
+     border-left: 5px solid #212529;
+     padding: 15px;
+     margin: 20px auto;
+     max-width: 400px;
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ .info-medidas h3 {
+     margin-top: 0;
+     color: #333;
+     font-size: 1.1rem;
+     border-bottom: 1px solid #ddd;
+     padding-bottom: 5px;
+ }
+
+ .info-medidas h4 {
+     color: #333;
+
+ }
+
+ .material-section {
+     margin-bottom: 12px;
+ }
+
+ .material-name {
+     font-weight: bold;
+     color: #e63946;
+     /* Un rojo sutil para destacar el material */
+     display: block;
+     margin-bottom: 5px;
+ }
+
+ .medida-item {
+     display: flex;
+     /*    justify-content: space-between;/*/
+     padding: 2px 0;
+     font-size: 0.95rem;
+ }
+
+ .label {
+     color: #555;
+ }
+
+ .value {
+     font-weight: bold;
+     color: #000;
+ }

@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvasPatente');
 const ctx = canvas.getContext('2d');
 let posicionActual = 'arriba';
-
+let logoFile = null;
 function actualizarValorAlto(val) {
     document.getElementById('valorAlto').innerText = val;
 }
@@ -20,7 +20,7 @@ function dibujar() {
             rawTexto.substring(4, 6);
     }
 
-    const logoFile = document.getElementById('selectorLogo').value;
+    logoFile = document.getElementById('selectorLogo').value;
 
     // --- Limpiar Lienzo ---
     ctx.fillStyle = "white";
@@ -149,44 +149,38 @@ function dibujar() {
 */
 
 
-// --- CONFIGURACIÓN TÉCNICA (Letras 161px = 8mm/6mm) ---
-// 1. MEDIR EL "#" REAL (Tinta)
-ctx.font = "180px 'MiFuentePatente'";
-const metricaNumeral = ctx.measureText("#");
-// Esto mide la mancha negra real del símbolo #
-const PIXELES_NUMERAL_TINTA = metricaNumeral.actualBoundingBoxAscent + metricaNumeral.actualBoundingBoxDescent;
+            // --- CONFIGURACIÓN TÉCNICA (Letras 161px = 8mm/6mm) ---
+            // --- CONFIGURACIÓN POR ANCHO (161px alto = 8mm/6mm) ---
+            const PIXELES_ALTO_LETRA = 161;
+            const MM_OBJETIVO_VIDRIOS = 8;
+            const MM_OBJETIVO_ESPEJOS = 6;
 
-// 2. CONFIGURACIÓN TÉCNICA
-const PIXELES_LETRA_TINTA = 161; 
-const SEPARACION_PX = 60;
-// El desplazamiento según tu dibujo original era fontSize * 0.185 (180 * 0.185 = 33.3)
-const DESPLAZAMIENTO_NUMERAL = 33.3; 
+            // 1. Medimos el ancho REAL de la patente en el canvas (solo las letras)
+            ctx.font = "180px 'MiFuentePatente'";
+            const metricaTexto = ctx.measureText(textoFormateado);
+            const anchoTextoPx = metricaTexto.width;
 
-const MM_LETRA_OBJETIVO_VIDRIOS = 8;
-const MM_LETRA_OBJETIVO_ESPEJOS = 6;
+            // 2. Calculamos el FACTOR DE ESCALA
+            // Queremos saber cuántos mm mide cada píxel para que el alto sea el objetivo
+            const factorVidrios = MM_OBJETIVO_VIDRIOS / PIXELES_ALTO_LETRA; // 8 / 161
+            const factorEspejos = MM_OBJETIVO_ESPEJOS / PIXELES_ALTO_LETRA; // 6 / 161
 
-// 3. Altura del logo (Slider + 50)
-const altoLogoRealPx = altoDinamico + 50;
+            // 3. CÁLCULO DEL ANCHO TOTAL EN MM
+            // El ancho que pongas en la app debe ser este:
+            const anchoFinalMMVidrios = anchoTextoPx * factorVidrios;
+            const anchoFinalMMEspejos = anchoTextoPx * factorEspejos;
 
-// 4. Altura Total de Tinta (Desde el tope del logo hasta la base del #)
-const alturaTotalTintaPx = altoLogoRealPx + 
-                           SEPARACION_PX + 
-                           PIXELES_LETRA_TINTA + 
-                           DESPLAZAMIENTO_NUMERAL + 
-                           PIXELES_NUMERAL_TINTA;
+            // 4. EL LOGO (Restricción de ancho)
+            // El logo no debe superar el ancho de las letras
+            const anchoLogoPx = (altoDinamico + 50) * (img.width / img.height);
+            if (anchoLogoPx > anchoTextoPx) {
+                // Aquí podrías mostrar una alerta o ajustar el altoDinamico automáticamente
+                console.warn("El logo es más ancho que las letras");
+            }
 
-// 5. CÁLCULO FINAL BASADO EN TUS 161 PX
-const medidaFinalMMVidrios = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_VIDRIOS;
-const medidaFinalMMEspejos = (alturaTotalTintaPx / PIXELES_LETRA_TINTA) * MM_LETRA_OBJETIVO_ESPEJOS;
-
-// 6. ACTUALIZAR HTML
-document.getElementById('medidaLaservidrios').innerText = medidaFinalMMVidrios.toFixed(2);
-document.getElementById('medidaLaserespejos').innerText = medidaFinalMMEspejos.toFixed(2);
-
-
-
-
-
+            // 5. ACTUALIZAR HTML
+            document.getElementById('medidaLaservidrios').innerText = anchoFinalMMVidrios.toFixed(2);
+            document.getElementById('medidaLaserespejos').innerText = anchoFinalMMEspejos.toFixed(2);
         };
 
     } else {
@@ -197,6 +191,7 @@ document.getElementById('medidaLaserespejos').innerText = medidaFinalMMEspejos.t
 function cambiarPosicion(pos) {
     posicionActual = pos;
     dibujar();
+    actualizarVisibilidadMedidas();
 }
 
 function descargarImagen() {
@@ -208,5 +203,27 @@ function descargarImagen() {
 }
 
 document.fonts.ready.then(() => {
+    cambiarPosicion('arriba');
+    dibujar();
+});
+
+function actualizarVisibilidadMedidas() {
+    const divArriba = document.getElementById('info-logo-arriba');
+    const divIzquierda = document.getElementById('info-logo-izquierda');
+
+    if (posicionActual === 'arriba' && logoFile != "") {
+        divArriba.classList.remove('hidden');
+        divIzquierda.classList.add('hidden');
+    } else {
+        divArriba.classList.add('hidden');
+        divIzquierda.classList.remove('hidden');
+    }
+}
+
+document.getElementById('selectorLogo').addEventListener('change', () => {
+    // 1. Actualizamos qué tabla de medidas se ve
+    actualizarVisibilidadMedidas();
+
+    // 2. Redibujamos el canvas para cargar (o quitar) el logo
     dibujar();
 });
